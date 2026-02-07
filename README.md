@@ -45,3 +45,15 @@ the ETL output seeds exactly:
 - If a comparison test fails, it returns the differing rows (either missing or extra).
 - To investigate, run the failing test and inspect the result set to see which
    columns or values diverge between the model and the ETL output.
+
+## Ignored dbt Artifacts
+
+Generated dbt artifacts are ignored in git (`dbt/target/`, `dbt/logs/`, and
+`dbt/warehouse.duckdb`). To regenerate them, run:
+
+```
+cd dbt
+dbt seed
+dbt build
+dbt snapshot
+```
