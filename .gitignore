@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# dbt artifacts
+dbt/target/
+dbt/logs/
+dbt/warehouse.duckdb
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
