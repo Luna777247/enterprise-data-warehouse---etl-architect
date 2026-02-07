@@ -1,0 +1,112 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: analytics_raw
+    tables:
+      - name: sales_transactions
+        description: "Raw sales transactions from CSV/API."
+        columns:
+          - name: transaction_id
+            tests:
+              - not_null
+              - unique
+          - name: order_date
+            tests:
+              - not_null
+          - name: cust_id
+            tests:
+              - not_null
+          - name: prod_id
+            tests:
+              - not_null
+      - name: products
+        description: "Product master data from source system."
+        columns:
+          - name: prod_id
+            tests:
+              - not_null
+              - unique
+      - name: customers
+        description: "Customer master data from API."
+        columns:
+          - name: cust_id
+            tests:
+              - not_null
+              - unique
+
+models:
+  - name: stg_sales
+    description: "Cleaned and typed sales transactions."
+    columns:
+      - name: transaction_id
+        tests:
+          - not_null
+          - unique
+      - name: sale_date
+        tests:
+          - not_null
+      - name: cust_id
+        tests:
+          - not_null
+      - name: prod_id
+        tests:
+          - not_null
+
+  - name: dim_products
+    description: "Product dimension with surrogate key."
+    columns:
+      - name: product_key
+        tests:
+          - not_null
+          - unique
+      - name: prod_id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_customers
+    description: "Customer dimension with surrogate key."
+    columns:
+      - name: customer_key
+        tests:
+          - not_null
+          - unique
+      - name: cust_id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_date
+    description: "Date dimension derived from sales dates."
+    columns:
+      - name: date_key
+        tests:
+          - not_null
+          - unique
+
+  - name: fct_sales
+    description: "Sales fact table for BI."
+    columns:
+      - name: sales_key
+        tests:
+          - not_null
+          - unique
+      - name: date_key
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: customer_key
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_key
+      - name: product_key
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_key

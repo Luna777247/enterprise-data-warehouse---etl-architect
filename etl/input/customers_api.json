@@ -1,0 +1,6 @@
+[
+  {"cust_id": 1, "name": "Apex Holdings", "segment": "Enterprise", "region": "NA"},
+  {"cust_id": 2, "name": "Blue Peak", "segment": "Mid-Market", "region": "EU"},
+  {"cust_id": 3, "name": "Cedar Labs", "segment": "SMB", "region": "APAC"},
+  {"cust_id": 4, "name": "Delta Ridge", "segment": "Mid-Market", "region": "NA"}
+]

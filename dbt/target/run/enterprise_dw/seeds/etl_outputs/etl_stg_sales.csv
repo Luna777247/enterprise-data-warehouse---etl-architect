@@ -1,0 +1,11 @@
+
+    
+    
+    truncate table "warehouse"."analytics_analytics"."etl_stg_sales";
+    -- dbt seed --
+    
+          COPY "warehouse"."analytics_analytics"."etl_stg_sales" FROM '/workspaces/enterprise-data-warehouse---etl-architect/dbt/seeds/etl_outputs/etl_stg_sales.csv' (FORMAT CSV, HEADER TRUE, DELIMITER ',')
+        
+
+;
+  
