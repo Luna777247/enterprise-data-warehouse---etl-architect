@@ -1,33 +1,42 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+## Tong quan
 
-# Run and deploy your AI Studio app
+Du an mo phong quy trinh ETL + dbt cho kho du lieu doanh nghiep, kem ung dung
+giao dien de quan sat pipeline, schema va so lieu mau.
 
-This contains everything you need to run your app locally.
+## Thanh phan chinh
 
-View your app in AI Studio: https://ai.studio/apps/drive/18fqEV98cG6zqvpTN60T5oRazN8uIXjtH
+- UI dashboard (Vite + React) trong thu muc root.
+- ETL script trong [etl/](etl/).
+- Du an dbt trong [dbt/](dbt/).
+- Du lieu mau va ket qua ETL trong [dbt/seeds/](dbt/seeds/).
 
-## Run Locally
+## Chay giao dien
 
-**Prerequisites:**  Node.js
+**Yeu cau:** Node.js
 
+1. Cai dependencies:
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```
+npm install
+```
 
-## ETL + dbt Commands
+2. Dat `GEMINI_API_KEY` trong [/.env.local](.env.local).
 
-Run the ETL pipeline and regenerate outputs:
+3. Chay app:
+
+```
+npm run dev
+```
+
+## ETL + dbt
+
+Chay ETL va tao lai output:
 
 ```
 python etl/etl_pipeline.py
 ```
 
-Seed DuckDB, run models, tests, and snapshots:
+Seed DuckDB, chay models, tests va snapshots:
 
 ```
 cd dbt
@@ -36,20 +45,18 @@ dbt build
 dbt snapshot
 ```
 
-## How to Interpret the Comparison Tests
+## Hieu ket qua comparison tests
 
-The comparison tests in [dbt/tests/](dbt/tests/) validate that dbt models match
-the ETL output seeds exactly:
+Tests trong [dbt/tests/](dbt/tests/) so sanh output cua dbt voi seed ETL:
 
-- If a comparison test passes, the dbt model and the ETL output are identical.
-- If a comparison test fails, it returns the differing rows (either missing or extra).
-- To investigate, run the failing test and inspect the result set to see which
-   columns or values diverge between the model and the ETL output.
+- Pass: dbt model trung khop hoan toan voi output ETL.
+- Fail: tra ve cac dong lech (thieu hoac du).
+- De dieu tra, chay test loi va xem ket qua de tim cot/gia tri khac nhau.
 
-## Ignored dbt Artifacts
+## Artifact dbt bi bo qua
 
-Generated dbt artifacts are ignored in git (`dbt/target/`, `dbt/logs/`, and
-`dbt/warehouse.duckdb`). To regenerate them, run:
+dbt artifacts duoc bo qua trong git: `dbt/target/`, `dbt/logs/`,
+`dbt/warehouse.duckdb`. Can tao lai thi chay:
 
 ```
 cd dbt
